@@ -4,8 +4,9 @@
 
 # Buttstrapper
 A simple yet effective Bootstrapper.
+> 🌐 [Website](https://buttstrapper.page.gd)
 ---
-> ⚠️ The only official places to get Buttstrap are this repository and our Discord.
+> ⚠️ The only official places to get Buttstrap are this repository, our website and our Discord.
 ## 📎 Links
 - [Download Installer](https://github.com/ShortyReps/Buttstrapper/releases)
 - [Discord](https://discord.gg/bQwBVJhmP8)
