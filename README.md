@@ -5,7 +5,7 @@
 > [!NOTE]
 > Buttstrap is NO LONGER IN ACTIVE DEVELOPMENT, users may experience bugs and issues as time goes on, for now, Buttstrap has worked fine and showed no issues, bugfixes will still happen but new features won't be added.
 
-# Buttstrapper
+# Buttstrap
 A simple yet effective Bootstrapper.
 > 🌐 [Website](https://buttstrapper.page.gd)
 ---
