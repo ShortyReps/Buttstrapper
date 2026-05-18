@@ -1,5 +1,14 @@
 {
   "newsFeed": [
+     {
+      "id": 1,
+      "title": "Buttstrapper has people!",
+      "description": "You can always report issues to our Issue tracker on Github!",
+      "thumbnail": "https://i.ibb.co/6cjZYTGt/Screenshot-20260517-232158-You-Cut-Video-Editor.jpg",
+      "hyperlink": "https://github.com/ShortyReps/Buttstrapper/issues",
+      "postDate": "2026-5-17",
+      "showAsCurrent": true
+    },
     {
       "id": 1,
       "title": "There's now only ONE way to update Buttstrapper.",
