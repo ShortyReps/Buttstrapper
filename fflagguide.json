@@ -1,934 +1,505 @@
 {
+  "_notes": [
+    "Unofficial: Roblox doesn't document FFlags. Everything here comes from community sources (Bloxstrap/Voidstrap, GitHub fflag repos, MaximumADHD's client-extracted tracker).",
+    "[KNOWN] = corroborated by multiple sources. [ASSUMPTION] = real flag, effect inferred from naming/usage. [UNKNOWN] = real flag, effect unclear.",
+    "[CAUTION] = documented as exploit-capable; reference only, not a recommendation to use (ban risk).",
+    "Recommended values are community convention, not tested. Flags get renamed/removed without notice -- treat as perishable."
+  ],
   "popular_fflags": [
     {
       "flag": "DFIntTaskSchedulerTargetFps",
-      "description": "[CONFIRMED] Sets the maximum framerate cap for the client.",
+      "description": "[KNOWN] Sets the client's target/max framerate. Extremely widely used and consistent across every source checked.",
       "recommendations": { "performance": "9999", "quality": "144", "stable": "60" }
     },
     {
       "flag": "FFlagTaskSchedulerLimitTargetFpsTo2402",
-      "description": "[CONFIRMED] Unlocks the 240 FPS limit in the built-in task scheduler.",
+      "description": "[ASSUMPTION] Appears to gate whether the client enforces a hard 240fps ceiling regardless of DFIntTaskSchedulerTargetFps; setting False is the community convention to allow uncapping above 240.",
       "recommendations": { "performance": "False", "quality": "False", "stable": "True" }
     },
     {
       "flag": "FFlagGameBasicSettingsFramerateCap5",
-      "description": "[CONFIRMED] Enables extended framerate cap options in the settings menu.",
+      "description": "[ASSUMPTION] Believed to control whether extended framerate cap options are exposed in the in-game settings menu.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "DFIntMaxFrameBufferSize",
-      "description": "[CONFIRMED] Controls how many frames are buffered to reduce input latency.",
-      "recommendations": { "performance": "1", "quality": "4", "stable": "3" }
-    },
-    {
-      "flag": "FIntLuaGcParallelMinMultiTasks",
-      "description": "[CONFIRMED] Minimum number of parallel Lua GC worker tasks.",
-      "recommendations": { "performance": "12", "quality": "8", "stable": "4" }
-    },
-    {
-      "flag": "FFlagRenderCheckThreading",
-      "description": "[CONFIRMED] Enables render thread validation for multithreaded rendering.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "FFlagDebugCheckRenderThreading",
-      "description": "[INTERNAL] Performs internal sanity checks on render thread state.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "FFlagFasterPreciseTime4",
-      "description": "[CONFIRMED] Uses a higher precision timer for scheduling and frame timing.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "DFIntRuntimeConcurrency",
-      "description": "[CONFIRMED] Controls how many parallel runtime tasks may execute.",
-      "recommendations": { "performance": "16", "quality": "8", "stable": "4" }
-    },
-    {
-      "flag": "FIntCLI20390_2",
-      "description": "[INTERNAL] Internal engine task scheduling tuning value.",
-      "recommendations": { "performance": "1", "quality": "1", "stable": "1" }
-    },
-
-    {
-      "flag": "FFlagDebugGraphicsPreferVulkan",
-      "description": "[EXPERIMENTAL] Forces Vulkan as the preferred graphics backend when available.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
     },
     {
       "flag": "FFlagDebugGraphicsPreferD3D11",
-      "description": "[CONFIRMED] Forces Direct3D 11 as the preferred rendering backend.",
+      "description": "[KNOWN] Forces the client to prefer the Direct3D 11 rendering backend.",
       "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
     },
     {
       "flag": "FFlagDebugGraphicsDisableDirect3D11",
-      "description": "[EXPERIMENTAL] Disables Direct3D 11 to force Vulkan or OpenGL fallback.",
+      "description": "[KNOWN] Disables the Direct3D 11 backend, used together with a Prefer flag to force Vulkan or OpenGL.",
       "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
     },
     {
       "flag": "FFlagDebugGraphicsPreferD3D11FL10",
-      "description": "[INTERNAL] Forces D3D11 Feature Level 10 for legacy GPU compatibility.",
+      "description": "[ASSUMPTION] Believed to force D3D11 running at Feature Level 10, intended as a compatibility fallback for older GPUs.",
       "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
     },
     {
-      "flag": "FFlagGraphicsEnableD3D10Compute",
-      "description": "[INTERNAL] Enables compute shaders on D3D10-capable hardware.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-    },
-
-    {
-      "flag": "FFlagRenderVulkanFixMinimizeWindow",
-      "description": "[CONFIRMED] Prevents crashes when minimizing the client while using Vulkan.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "FStringDebugGraphicsPreferredGPUName",
-      "description": "[CONFIRMED] Forces the client to select a specific GPU by name.",
-      "recommendations": { "performance": "NVIDIA", "quality": "NVIDIA", "stable": "" }
-    },
-    {
-      "flag": "FFlagDebugGraphicsPreferMetal",
-      "description": "[CONFIRMED] Forces the Metal renderer on macOS devices.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "FFlagDebugGraphicsDisableVulkan",
-      "description": "[CONFIRMED] Disables Vulkan rendering support entirely.",
-      "recommendations": { "performance": "False", "quality": "False", "stable": "True" }
-    },
-
-    {
-      "flag": "FFlagRenderEnableGlobalInstancingD3D11",
-      "description": "[CONFIRMED] Enables instanced rendering to reduce D3D11 draw calls.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-
-    {
-      "flag": "DFFlagTextureQualityOverrideEnabled",
-      "description": "[CONFIRMED] Allows manual overriding of texture quality levels.",
+      "flag": "FFlagDebugGraphicsPreferVulkan",
+      "description": "[KNOWN] Forces the client to prefer the Vulkan rendering backend when paired with disabling D3D11.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
     },
     {
-      "flag": "DFIntTextureQualityOverride",
-      "description": "[CONFIRMED] Sets forced texture quality (0=Low, 3=High).",
-      "recommendations": { "performance": "0", "quality": "3", "stable": "2" }
+      "flag": "FFlagDebugGraphicsPreferOpenGL",
+      "description": "[KNOWN] Forces the client to prefer the OpenGL rendering backend, generally used as a legacy-hardware fallback.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
     },
     {
-      "flag": "FIntDebugTextureManagerSkipMips",
-      "description": "[CONFIRMED] Skips mipmap levels to reduce VRAM usage.",
-      "recommendations": { "performance": "1", "quality": "0", "stable": "0" }
-    }
-    ,
-    {
-      "flag": "DFIntTextureCompositorActiveJobs",
-      "description": "[CONFIRMED] Limits how many texture compositor jobs can run concurrently.",
-      "recommendations": { "performance": "1", "quality": "4", "stable": "2" }
-    },
-    {
-      "flag": "FIntTextureCompositorLowResFactor",
-      "description": "[CONFIRMED] Scales down resolution of composite avatar textures.",
-      "recommendations": { "performance": "4", "quality": "1", "stable": "2" }
-    },
-    {
-      "flag": "FStringPartTexturePackTablePre2022",
-      "description": "[INTERNAL] Overrides legacy part texture packs prior to 2022 materials.",
-      "recommendations": { "performance": "None", "quality": "Default", "stable": "Default" }
-    },
-    {
-      "flag": "FStringPartTexturePackTable2022",
-      "description": "[INTERNAL] Overrides modern part texture packs for 2022 material system.",
-      "recommendations": { "performance": "None", "quality": "Default", "stable": "Default" }
-    },
-    {
-      "flag": "FStringTerrainMaterialTablePre2022",
-      "description": "[INTERNAL] Overrides legacy terrain material textures.",
-      "recommendations": { "performance": "None", "quality": "Default", "stable": "Default" }
-    },
-    {
-      "flag": "FStringTerrainMaterialTable2022",
-      "description": "[INTERNAL] Overrides modern terrain material textures.",
-      "recommendations": { "performance": "None", "quality": "Default", "stable": "Default" }
-    },
-
-    {
-      "flag": "DFFlagEnableRequestAsyncCompression",
-      "description": "[CONFIRMED] Enables compression for HTTP asset requests.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "FIntTerrainArraySliceSize",
-      "description": "[CONFIRMED] Internal slice size for terrain voxel arrays.",
-      "recommendations": { "performance": "1", "quality": "4", "stable": "2" }
-    },
-    {
-      "flag": "DFIntNumAssetsMaxToPreload",
-      "description": "[CONFIRMED] Maximum number of assets to preload into memory.",
-      "recommendations": { "performance": "100", "quality": "1000", "stable": "500" }
-    },
-    {
-      "flag": "FFlagMSRefactor5",
-      "description": "[CONFIRMED] Enables Material Service refactor for improved memory handling.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "FIntRenderMeshOptimizeVertexBuffer",
-      "description": "[CONFIRMED] Optimizes vertex buffers for mesh rendering efficiency.",
-      "recommendations": { "performance": "1", "quality": "1", "stable": "1" }
-    },
-    {
-      "flag": "DFIntBufferCompressionLevel",
-      "description": "[CONFIRMED] Sets compression aggressiveness for internal buffers.",
-      "recommendations": { "performance": "0", "quality": "2", "stable": "1" }
-    },
-
-    {
-      "flag": "FIntRenderShadowIntensity",
-      "description": "[CONFIRMED] Controls shadow darkness multiplier.",
-      "recommendations": { "performance": "0", "quality": "100", "stable": "50" }
-    },
-    {
-      "flag": "DFFlagDebugPauseVoxelizer",
-      "description": "[EXPERIMENTAL] Pauses voxel lighting updates to reduce GPU load.",
+      "flag": "FFlagGraphicsEnableD3D10Compute",
+      "description": "[UNKNOWN] Name suggests enabling compute-shader support on D3D10-class hardware; no source explains real-world effect or risk.",
       "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
     },
-    {
-      "flag": "FIntCSGVoxelizerFadeRadius",
-      "description": "[CONFIRMED] Fade distance for voxel-based lighting transitions.",
-      "recommendations": { "performance": "0", "quality": "100", "stable": "50" }
-    },
-    {
-      "flag": "FFlagNewLightAttenuation",
-      "description": "[CONFIRMED] Enables physically-based light falloff calculations.",
-      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
-    },
-
-    {
-      "flag": "FIntRenderLocalLightUpdatesMax",
-      "description": "[CONFIRMED] Maximum number of local light updates per frame.",
-      "recommendations": { "performance": "1", "quality": "16", "stable": "8" }
-    },
-    {
-      "flag": "FIntRenderLocalLightUpdatesMin",
-      "description": "[CONFIRMED] Minimum number of local light updates per frame.",
-      "recommendations": { "performance": "1", "quality": "8", "stable": "4" }
-    },
-    {
-      "flag": "FIntRenderLocalLightFadeInMs",
-      "description": "[CONFIRMED] Fade-in time for light updates in milliseconds.",
-      "recommendations": { "performance": "0", "quality": "100", "stable": "50" }
-    },
-    {
-      "flag": "FFlagFastGPULightCulling3",
-      "description": "[CONFIRMED] Improves GPU light culling performance.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-
-    {
-      "flag": "DFFlagDebugRenderForceTechnologyVoxel",
-      "description": "[EXPERIMENTAL] Forces legacy voxel lighting over Future/ShadowMap.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-    },
-    {
-      "flag": "FFlagShaderLightingRefactor",
-      "description": "[CONFIRMED] Enables refactored lighting shaders for better performance.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "DFIntRenderClampRoughnessMax",
-      "description": "[INTERNAL] Clamps material roughness to reduce reflection cost.",
-      "recommendations": { "performance": "-640000000", "quality": "1", "stable": "0" }
-    },
-
-    {
-      "flag": "FFlagDebugForceFutureIsBrightPhase3",
-      "description": "[EXPERIMENTAL] Forces highest-quality Future lighting pipeline.",
-      "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-    },
-    {
-      "flag": "FFlagDebugForceFutureIsBrightPhase2",
-      "description": "[CONFIRMED] Forces ShadowMap lighting mode.",
-      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "FFlagDebugSSAOForce",
-      "description": "[EXPERIMENTAL] Forces SSAO regardless of graphics settings.",
-      "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-    },
-    {
-      "flag": "FIntSSAOMipLevels",
-      "description": "[CONFIRMED] Controls resolution levels used for SSAO.",
-      "recommendations": { "performance": "0", "quality": "2", "stable": "1" }
-    },
-
     {
       "flag": "FFlagDisablePostFx",
-      "description": "[CONFIRMED] Disables all post-processing effects.",
+      "description": "[KNOWN] Disables post-processing effects (bloom, color correction, etc.) client-side. One of the most consistently cited performance flags.",
       "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
     },
     {
       "flag": "FFlagDebugSkyGray",
-      "description": "[CONFIRMED] Replaces skybox with flat gray color for performance.",
+      "description": "[KNOWN] Replaces the skybox with a flat gray color, cited in multiple performance/leak lists.",
       "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
     },
-
+    {
+      "flag": "FIntRenderShadowIntensity",
+      "description": "[KNOWN] Controls shadow darkness/intensity; setting to 0 is the standard way to effectively remove shadows.",
+      "recommendations": { "performance": "0", "quality": "100", "stable": "50" }
+    },
+    {
+      "flag": "DFFlagDebugPauseVoxelizer",
+      "description": "[ASSUMPTION] Believed to pause the voxel-based lighting update system to reduce GPU load; naming and community usage are consistent but not independently confirmed.",
+      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
+    },
+    {
+      "flag": "FIntCSGVoxelizerFadeRadius",
+      "description": "[ASSUMPTION] Believed to control fade distance for voxel-based lighting transitions; consistently paired with the voxelizer pause flag in community configs.",
+      "recommendations": { "performance": "0", "quality": "100", "stable": "50" }
+    },
+    {
+      "flag": "DFFlagDebugRenderForceTechnologyVoxel",
+      "description": "[ASSUMPTION] Believed to force the legacy Voxel lighting technology instead of Future/ShadowMap, for lower-end performance.",
+      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
+    },
+    {
+      "flag": "FFlagDebugForceFutureIsBrightPhase3",
+      "description": "[UNKNOWN] Appears related to forcing the newest ('Future') lighting pipeline phase, but no source explains the exact mechanism.",
+      "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
+    },
+    {
+      "flag": "DFFlagTextureQualityOverrideEnabled",
+      "description": "[KNOWN] Enables manual override of texture quality, used together with DFIntTextureQualityOverride.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
+    },
+    {
+      "flag": "DFIntTextureQualityOverride",
+      "description": "[KNOWN] Sets forced texture quality level (lower = blurrier/lower VRAM use).",
+      "recommendations": { "performance": "0", "quality": "3", "stable": "2" }
+    },
+    {
+      "flag": "FIntDebugTextureManagerSkipMips",
+      "description": "[ASSUMPTION] Believed to skip mipmap levels to reduce VRAM usage; sign/magnitude of the value varies between sources (some use -1, some use 1), so treat exact value as unverified.",
+      "recommendations": { "performance": "1", "quality": "0", "stable": "0" }
+    },
+    {
+      "flag": "FIntTerrainArraySliceSize",
+      "description": "[ASSUMPTION] Community sources describe this as controlling terrain texture array detail; lower values reduce quality/memory use. Exact mechanism not independently confirmed.",
+      "recommendations": { "performance": "1", "quality": "16", "stable": "4" }
+    },
     {
       "flag": "FIntFRMMaxGrassDistance",
-      "description": "[CONFIRMED] Maximum distance terrain grass is rendered.",
+      "description": "[KNOWN] Maximum distance at which terrain grass renders.",
       "recommendations": { "performance": "0", "quality": "1000", "stable": "500" }
     },
     {
       "flag": "FIntFRMMinGrassDistance",
-      "description": "[CONFIRMED] Minimum distance before grass begins rendering.",
+      "description": "[KNOWN] Minimum distance before grass begins rendering.",
       "recommendations": { "performance": "0", "quality": "100", "stable": "50" }
     },
     {
       "flag": "FIntRenderGrassDetailStrands",
-      "description": "[CONFIRMED] Controls density of grass strands.",
-      "recommendations": { "performance": "0", "quality": "4", "stable": "2" }
-    }
-    ,
-    {
-      "flag": "DFIntCSGLevelOfDetailSwitchingDistance",
-      "description": "[CONFIRMED] Base distance used for CSG LOD switching.",
-      "recommendations": { "performance": "0", "quality": "500", "stable": "250" }
-    },
-    {
-      "flag": "DFIntCSGLevelOfDetailSwitchingDistanceL12",
-      "description": "[CONFIRMED] Distance threshold for CSG LOD level 1 to 2.",
-      "recommendations": { "performance": "0", "quality": "1000", "stable": "500" }
-    },
-    {
-      "flag": "DFIntCSGLevelOfDetailSwitchingDistanceL23",
-      "description": "[CONFIRMED] Distance threshold for CSG LOD level 2 to 3.",
-      "recommendations": { "performance": "0", "quality": "1500", "stable": "750" }
-    },
-    {
-      "flag": "DFIntCSGLevelOfDetailSwitchingDistanceL34",
-      "description": "[CONFIRMED] Distance threshold for CSG LOD level 3 to lowest.",
-      "recommendations": { "performance": "0", "quality": "2000", "stable": "1000" }
-    },
-    {
-      "flag": "DFIntCSGv2LodsToGenerate",
-      "description": "[CONFIRMED] Number of LODs generated for CSG v2 meshes.",
+      "description": "[ASSUMPTION] Believed to control density of individual grass strands rendered.",
       "recommendations": { "performance": "0", "quality": "4", "stable": "2" }
     },
     {
-      "flag": "DFIntCSGv2LodMinTriangleCount",
-      "description": "[CONFIRMED] Minimum triangle count before CSG LOD reduction occurs.",
-      "recommendations": { "performance": "0", "quality": "500", "stable": "100" }
+      "flag": "FFlagNewLightAttenuation",
+      "description": "[ASSUMPTION] Believed to toggle physically-based light falloff calculations vs. legacy attenuation.",
+      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
     },
-
+    {
+      "flag": "FIntRenderLocalLightUpdatesMax",
+      "description": "[KNOWN] Maximum number of local light updates processed per frame.",
+      "recommendations": { "performance": "1", "quality": "16", "stable": "8" }
+    },
+    {
+      "flag": "FIntRenderLocalLightUpdatesMin",
+      "description": "[KNOWN] Minimum number of local light updates processed per frame.",
+      "recommendations": { "performance": "1", "quality": "8", "stable": "6" }
+    },
+    {
+      "flag": "FIntRenderLocalLightFadeInMs",
+      "description": "[KNOWN] Fade-in duration in milliseconds for local light updates; setting to 0 makes lights appear instantly instead of animating in.",
+      "recommendations": { "performance": "0", "quality": "100", "stable": "50" }
+    },
+    {
+      "flag": "FFlagFastGPULightCulling3",
+      "description": "[ASSUMPTION] Believed to enable a faster GPU-side light culling path; cited repeatedly in performance-flag packs but not explained in detail anywhere.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
     {
       "flag": "DFIntDebugFRMQualityLevelOverride",
-      "description": "[INTERNAL] Forces internal Fast Rendering Model quality level.",
+      "description": "[KNOWN] Directly overrides the internal Fast Render Model quality level, bypassing the normal 1-10 in-game graphics slider mapping (which maps to internal values like 3, 2, 6, 7, 11, 14, 15, 17, 18, 21 per community-documented tables).",
       "recommendations": { "performance": "1", "quality": "21", "stable": "10" }
     },
     {
       "flag": "FIntRomarkStartWithGraphicQualityLevel",
-      "description": "[CONFIRMED] Sets default graphics quality level on launch.",
+      "description": "[KNOWN] Sets the default in-game graphics quality slider level (1-10) on launch.",
       "recommendations": { "performance": "1", "quality": "10", "stable": "5" }
     },
     {
       "flag": "DFIntDebugRestrictGCDistance",
-      "description": "[CONFIRMED] Restricts maximum object render distance.",
+      "description": "[ASSUMPTION] Believed to restrict maximum object/geometry render (culling) distance.",
       "recommendations": { "performance": "1", "quality": "5", "stable": "3" }
     },
-
     {
-      "flag": "FFlagRenderDynamicResolutionScale9",
-      "description": "[EXPERIMENTAL] Enables dynamic resolution scaling to maintain FPS.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
+      "flag": "FFlagGlobalWindActivated",
+      "description": "[KNOWN] Enables/disables the global wind simulation system affecting things like foliage sway.",
+      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
     },
-
     {
-      "flag": "DFFlagSimOptimizeGeometryChangedAssemblies3",
-      "description": "[CONFIRMED] Optimizes physics updates for moving assemblies.",
+      "flag": "DFIntCSGLevelOfDetailSwitchingDistance",
+      "description": "[UNKNOWN] Appears in multiple leak lists related to CSG (union/mesh) level-of-detail switching, but exact behavior and units aren't documented anywhere reliable.",
+      "recommendations": { "performance": "0", "quality": "500", "stable": "250" }
+    },
+    {
+      "flag": "DFFlagEnableRequestAsyncCompression",
+      "description": "[UNKNOWN] Name suggests enabling compression for async HTTP asset requests; effect not explained in any source found.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
-
     {
-      "flag": "FFlagEnableCSGv2",
-      "description": "[CONFIRMED] Enables Constructive Solid Geometry v2 system.",
+      "flag": "DFIntConnectionMTUSize",
+      "description": "[KNOWN] Sets the network MTU size used for client packets; widely included in 'low ping' flag packs, though claimed optimal values vary a lot between sources (900-1500), which is itself a sign most of these values are guesses rather than tested.",
+      "recommendations": { "performance": "1400", "quality": "1500", "stable": "1500" }
+    },
+    {
+      "flag": "FFlagEnableQuickGameLaunch",
+      "description": "[ASSUMPTION] Believed to skip certain splash/loading screens to launch games faster.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
-
+    {
+      "flag": "FFlagDebugDisplayFPS",
+      "description": "[KNOWN] Displays a persistent FPS counter overlay.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
+    },
+    {
+      "flag": "FFlagHandleAltEnterFullscreenManually",
+      "description": "[KNOWN] Changes Alt+Enter to trigger true exclusive fullscreen instead of the default borderless behavior.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
+    },
+    {
+      "flag": "DFFlagDisableDPIScale",
+      "description": "[KNOWN] Disables Windows DPI scaling for the client, which some users apply to fix blurry UI on scaled displays.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
+    },
+    {
+      "flag": "FFlagDebugDisableTelemetryEphemeralCounter",
+      "description": "[KNOWN] Part of a documented set of flags that disable various Roblox telemetry/analytics counters client-side. Commonly bundled with the other telemetry-disable flags below.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FFlagDebugDisableTelemetryEphemeralStat",
+      "description": "[KNOWN] Disables a telemetry stat channel; bundled with the other telemetry-disable flags.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FFlagDebugDisableTelemetryEventIngest",
+      "description": "[KNOWN] Disables telemetry event ingestion; bundled with the other telemetry-disable flags.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FFlagDebugDisableTelemetryPoint",
+      "description": "[KNOWN] Disables a telemetry data-point channel; bundled with the other telemetry-disable flags.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FFlagDebugDisableTelemetryV2Counter",
+      "description": "[KNOWN] Disables the v2 telemetry counter channel; bundled with the other telemetry-disable flags.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FFlagDebugDisableTelemetryV2Event",
+      "description": "[KNOWN] Disables the v2 telemetry event channel; bundled with the other telemetry-disable flags.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FFlagDebugDisableTelemetryV2Stat",
+      "description": "[KNOWN] Disables the v2 telemetry stat channel; bundled with the other telemetry-disable flags.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
     {
       "flag": "DFIntAnimationLodFacsDistanceMin",
-      "description": "[CONFIRMED] Minimum distance before facial animation LOD applies.",
+      "description": "[UNKNOWN] Appears in leak lists near other facial-animation LOD (facs = facial capture system) flags; no source explains exact effect.",
       "recommendations": { "performance": "0", "quality": "50", "stable": "20" }
     },
     {
       "flag": "DFIntAnimationLodFacsDistanceMax",
-      "description": "[CONFIRMED] Maximum distance for facial animation rendering.",
+      "description": "[UNKNOWN] Appears alongside DFIntAnimationLodFacsDistanceMin; presumed to be the far-distance cutoff for facial animation detail, not independently confirmed.",
       "recommendations": { "performance": "50", "quality": "200", "stable": "100" }
     },
-
     {
-      "flag": "FFlagDebugDontRenderScreenGui",
-      "description": "[INTERNAL] Disables ScreenGui rendering for benchmarking.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
+      "flag": "DFFlagSkipValidateReceivedJoinData",
+      "description": "[UNKNOWN] Appears in 'low ping' leaked-flag packs with no explanation. Given the name references skipping validation of join data, treat with caution rather than assuming it's purely cosmetic/performance-related.",
+      "recommendations": { "performance": "N/A - not recommended without understanding", "quality": "N/A", "stable": "N/A" }
     },
-
     {
-      "flag": "FFlagUserShowGuiHideToggles",
-      "description": "[CONFIRMED] Enables Shift+G and related GUI hide shortcuts.",
+      "flag": "FFlagEnableInGameMenuChrome",
+      "description": "[ASSUMPTION] Part of a cluster of flags ('Chrome') believed to control Roblox's newer in-game menu/UI system rollout.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
-
     {
-      "flag": "FFlagEnableInGameMenuModernization",
-      "description": "[CONFIRMED] Enables modernized in-game escape menu.",
+      "flag": "FFlagEnableBubbleChatFromChatService",
+      "description": "[ASSUMPTION] Believed to toggle bubble chat rendering being driven by the newer chat service.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
-
-    {
-      "flag": "FFlagEnableCommandAutocomplete",
-      "description": "[CONFIRMED] Enables autocomplete in the developer console.",
-      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
-    },
-
-    {
-      "flag": "FFlagChatTranslationSettingEnabled3",
-      "description": "[CONFIRMED] Enables automatic chat translation settings.",
-      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
-    },
-
-    {
-      "flag": "FFlagGlobalWindActivated",
-      "description": "[CONFIRMED] Enables global wind simulation system.",
-      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
-    },
-
     {
       "flag": "DFIntMaxMissedWorldStepsRemembered",
-      "description": "[CONFIRMED] Controls physics behavior during lag spikes.",
+      "description": "[KNOWN] Controls how many missed physics steps the client will 'remember' and catch up on after a lag spike. Community sources note the physics engine won't go below 60 steps/sec through the normal UI, so this is set very high specifically to prevent physics slowdown during frame drops.",
       "recommendations": { "performance": "60", "quality": "1", "stable": "10" }
     },
-
     {
-      "flag": "DFIntConnectionMTUSize",
-      "description": "[CONFIRMED] Sets network MTU size for client packets.",
-      "recommendations": { "performance": "1490", "quality": "1490", "stable": "1500" }
-    },
-
-    {
-      "flag": "FFlagEnableQuickGameLaunch",
-      "description": "[CONFIRMED] Skips splash screens to launch games faster.",
+      "flag": "FFlagDebugSimIntegrationStabilityTesting",
+      "description": "[UNKNOWN] Cited as related to physics simulation stability testing; no source explains the actual mechanism beyond the name.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
-
     {
-      "flag": "DFIntAssetCacheSize",
-      "description": "[CONFIRMED] Size in MB of local asset cache.",
-      "recommendations": { "performance": "1024", "quality": "4096", "stable": "2048" }
+      "flag": "FFlagDebugDisableNetworkExtrapolation",
+      "description": "[UNKNOWN] Name suggests disabling client-side network position extrapolation (predicting where other players will be between updates); effect and tradeoffs not independently confirmed.",
+      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
     },
-
     {
-      "flag": "FFlagDebugDisplayFPS",
-      "description": "[CONFIRMED] Displays constant FPS overlay.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
+      "flag": "FFlagSimAdaptiveTimesteppingDefault2",
+      "description": "[ASSUMPTION] Believed to control whether the physics engine uses adaptive (variable) timestepping by default.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
-
+    {
+      "flag": "DFIntReplicatorAnimationTrackLimitPerAnimator",
+      "description": "[CAUTION][UNKNOWN] Community sources claim setting this to -1 stops the client from replicating your own animations to the server (you still see them locally). Exact behavior unverified and this could look like desync/exploit behavior to anti-cheat or other players.",
+      "recommendations": { "performance": "N/A - not recommended", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "DFIntMinClientSimulationRadius",
+      "description": "[CAUTION][UNKNOWN] Part of a trio of radius flags community sources describe as expanding the client's physics simulation radius to an extreme value. Purpose/side effects beyond that are unverified.",
+      "recommendations": { "performance": "N/A - not recommended", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "DFIntMaxClientSimulationRadius",
+      "description": "[CAUTION][UNKNOWN] See DFIntMinClientSimulationRadius; appears alongside it in the same flag trio in community sources.",
+      "recommendations": { "performance": "N/A - not recommended", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "DFIntAssemblyExtentsExpansionStudHundredth",
+      "description": "[CAUTION][KNOWN] Documented in community repos as controlling collision-extent expansion in studs; setting it very negative is reported to let the client clip through thin walls/floors client-side. Explicitly labeled exploitable by the source that documents it -- using this can get an account banned in games with anti-cheat.",
+      "recommendations": { "performance": "N/A - not recommended", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FFlagUserShowGuiHideToggles",
+      "description": "[KNOWN] Enables the Ctrl+Shift+G / Ctrl+Shift+C / Ctrl+Shift+B family of keyboard shortcuts for hiding CoreGuis, ScreenGuis, and 3D-space GUIs.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "DFIntCanHideGuiGroupId",
+      "description": "[UNKNOWN] Takes a Roblox group ID as its value per community instructions; exact purpose relative to the GUI-hide toggles above is not explained.",
+      "recommendations": { "performance": "N/A - depends on group ID", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FIntFullscreenTitleBarTriggerDelayMillis",
+      "description": "[ASSUMPTION] Believed to control the delay in milliseconds before the fullscreen title bar auto-hides/triggers; community configs set it to a huge value (e.g. 3600000ms = 1 hour) to effectively disable it.",
+      "recommendations": { "performance": "3600000", "quality": "3600000", "stable": "3600000" }
+    },
+    {
+      "flag": "FIntFontSizePadding",
+      "description": "[UNKNOWN] Adjusts padding around rendered font sizes according to community sources; exact visual effect not independently confirmed.",
+      "recommendations": { "performance": "0", "quality": "0", "stable": "0" }
+    },
+    {
+      "flag": "FIntMaxKickMessageLength",
+      "description": "[UNKNOWN] Community sources set this to a very small value; presumed to cap the length of kick-message text shown to the client, but not independently confirmed.",
+      "recommendations": { "performance": "N/A", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "DFIntVoiceChatRollOffMinDistance",
+      "description": "[ASSUMPTION] Believed to set the minimum distance at which spatial voice chat volume begins falling off with distance.",
+      "recommendations": { "performance": "7", "quality": "7", "stable": "7" }
+    },
+    {
+      "flag": "DFIntVoiceChatRollOffMaxDistance",
+      "description": "[ASSUMPTION] Believed to set the maximum distance at which spatial voice chat becomes inaudible.",
+      "recommendations": { "performance": "80", "quality": "80", "stable": "80" }
+    },
+    {
+      "flag": "DFIntCullFactorPixelThresholdShadowMapHighQuality",
+      "description": "[UNKNOWN] Appears in performance-flag packs alongside a matching LowQuality variant; naming suggests a pixel-size threshold below which shadow-casting objects are culled from the high-quality shadow map. Community configs set both to the max int value (2147483647), effectively disabling that threshold.",
+      "recommendations": { "performance": "2147483647", "quality": "0", "stable": "1000000" }
+    },
+    {
+      "flag": "DFIntCullFactorPixelThresholdShadowMapLowQuality",
+      "description": "[UNKNOWN] See DFIntCullFactorPixelThresholdShadowMapHighQuality; the low-quality-map counterpart.",
+      "recommendations": { "performance": "2147483647", "quality": "0", "stable": "1000000" }
+    },
+    {
+      "flag": "DFFlagUseVisBugChecks",
+      "description": "[UNKNOWN] Part of a small cluster of 'VisBugChecks' flags in community repos; presumed to be internal visibility/culling bug-detection instrumentation, not independently explained.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
+    },
+    {
+      "flag": "FFlagUserHideCharacterParticlesInFirstPerson",
+      "description": "[ASSUMPTION] Believed to hide your own character's particle effects while in first-person camera mode, reducing visual clutter/GPU load.",
+      "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
+    },
+    {
+      "flag": "FFlagDisablePlayerListDisplayCloseBtn",
+      "description": "[UNKNOWN] Name suggests hiding the close button on the player list UI; not independently confirmed.",
+      "recommendations": { "performance": "N/A - cosmetic", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FFlagReconnectDisabled",
+      "description": "[KNOWN] Disables Roblox's automatic reconnect-on-disconnect behavior. Frequently paired with FStringReconnectDisabledReason, which sets custom text shown when reconnect is blocked.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
+    },
+    {
+      "flag": "FFlagEnableInGameMenuModernization",
+      "description": "[KNOWN] Toggles the modernized in-game escape menu redesign, part of a larger cluster of menu-versioning flags (v2/v3/'Chrome') that Roblox has used to stage this rollout.",
+      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "DFFlagVoiceChat4",
+      "description": "[UNKNOWN] Appears in community chat/voice-related flag lists; presumed to gate some generation of the voice chat feature but not independently explained.",
+      "recommendations": { "performance": "N/A", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FFlagFixSensitivityTextPrecision",
+      "description": "[ASSUMPTION] Name suggests fixing rounding/precision display of mouse sensitivity values in settings text.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
+    },
+    {
+      "flag": "FFlagChatTranslationEnableSystemMessage",
+      "description": "[ASSUMPTION] Believed to toggle whether system messages (join/leave, etc.) are included in automatic chat translation.",
+      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FStringChatTranslationEnabledLocales",
+      "description": "[KNOWN] A comma-separated list of locale codes (e.g. es_es, fr_fr, ja_jp) that Roblox's automatic chat translation supports. Community sources note English cannot be removed from translation regardless of this list.",
+      "recommendations": { "performance": "N/A - list of locale codes", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FIntGameGridFlexFeedItemTileNumPerFeed",
+      "description": "[UNKNOWN] Presumed to control how many game tiles appear per row/feed on the Roblox home page grid; effect not independently confirmed.",
+      "recommendations": { "performance": "0", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FFlagEnableCapturesHotkeyExperiment_v4",
+      "description": "[ASSUMPTION] Believed to gate an experimental version of the screenshot/video capture hotkey system.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
+    },
+    {
+      "flag": "DFFlagOrder66",
+      "description": "[UNKNOWN] A real flag name seen in community lists (likely an internal joke reference, per the Star Wars naming), but no source explains what it actually controls. Treat with extra caution given the unexplained, dramatically-named nature.",
+      "recommendations": { "performance": "N/A - unverified", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FFlagDebugForceChatDisabled",
+      "description": "[KNOWN] Forces in-experience text chat to be disabled client-side.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
+    },
+    {
+      "flag": "DFIntAnimationLodFacsVisibilityDenominator",
+      "description": "[UNKNOWN] Appears alongside the other facial-animation LOD distance flags; presumed to be a divisor affecting facial-capture visibility falloff, not independently confirmed.",
+      "recommendations": { "performance": "0", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FFlagDebugDefaultChannelStartMuted",
+      "description": "[UNKNOWN] Presumed to control whether the default voice/text channel starts muted; not independently confirmed.",
+      "recommendations": { "performance": "N/A", "quality": "N/A", "stable": "N/A" }
+    },
+    {
+      "flag": "FIntV1MenuLanguageSelectionFeaturePerMillageRollout",
+      "description": "[KNOWN] Controls the rollout percentage (in per-mille, i.e. parts per thousand) of the experience-language-selection menu feature; setting to 0 removes that option from settings for the client.",
+      "recommendations": { "performance": "0", "quality": "0", "stable": "0" }
+    },
     {
       "flag": "FIntCameraMaxZoomDistance",
-      "description": "[CONFIRMED] Sets maximum camera zoom-out distance.",
+      "description": "[KNOWN] Sets the maximum camera zoom-out distance client-side. Community sources note it only takes effect in experiences that haven't set their own custom zoom limit via game settings.",
       "recommendations": { "performance": "400", "quality": "10000", "stable": "1000" }
     },
-
     {
-      "flag": "FFlagGraphicsLowQualityMeshes",
-      "description": "[CONFIRMED] Forces all meshes to use lowest LOD.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
+      "flag": "FFlagMuteTogglesEnableIXP",
+      "description": "[UNKNOWN] Name suggests gating an experiment (IXP = internal experimentation platform) related to mute toggles in the newer 'Chrome' UI; effect not independently confirmed.",
+      "recommendations": { "performance": "N/A", "quality": "N/A", "stable": "N/A" }
     },
     {
-      "flag": "FFlagRenderUseParallelEncoder",
-      "description": "[CONFIRMED] Enables parallel command encoding for the render pipeline.",
+      "flag": "DFFlagFacialAnimationStreaming2",
+      "description": "[KNOWN] Toggles streaming of facial animation data (v2 of the system), letting the client reduce facial-animation network/processing load when disabled.",
+      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
+    },
+    {
+      "flag": "FFlagNewCameraControls",
+      "description": "[KNOWN] Toggles Roblox's newer camera control scheme/input handling.",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
     {
-      "flag": "DFIntRenderParallelEncoderTasks",
-      "description": "[CONFIRMED] Number of parallel tasks used for render command encoding.",
-      "recommendations": { "performance": "8", "quality": "4", "stable": "2" }
+      "flag": "FFlagDebugEnableDirectAudioOcclusion2",
+      "description": "[KNOWN] Enables a version of directional audio occlusion (sound muffling through walls/objects).",
+      "recommendations": { "performance": "False", "quality": "True", "stable": "True" }
     },
     {
-      "flag": "FFlagRenderEnableOcclusionQueries",
-      "description": "[CONFIRMED] Enables GPU occlusion queries to skip hidden geometry.",
+      "flag": "FFlagEnableAudioOutputDevice",
+      "description": "[ASSUMPTION] Believed to enable an in-client audio output device selector (choosing which speaker/headset Roblox plays through).",
       "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
     },
     {
-      "flag": "DFIntRenderOcclusionQueryBatchSize",
-      "description": "[EXPERIMENTAL] Batch size for occlusion query processing.",
-      "recommendations": { "performance": "512", "quality": "256", "stable": "128" }
-    },
-
-    {
-      "flag": "FFlagStreamingUseNewMetrics",
-      "description": "[EXPERIMENTAL] Uses updated heuristics for asset streaming decisions.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
+      "flag": "DFIntS2PhysicsSenderRate",
+      "description": "[KNOWN] Controls the rate at which the client sends physics state updates to the server. Lower values reduce outgoing bandwidth but can make movement look less smooth to other players.",
+      "recommendations": { "performance": "1", "quality": "10", "stable": "5" }
     },
     {
-      "flag": "DFIntStreamingTargetRenderRadius",
-      "description": "[CONFIRMED] Target radius around camera for high-detail asset streaming.",
-      "recommendations": { "performance": "256", "quality": "1024", "stable": "512" }
+      "flag": "DFFlagDebugEnableInterpolationVisualizer",
+      "description": "[KNOWN] Enables an on-screen network interpolation debugging overlay, toggled in-game with Ctrl+F8.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
     },
     {
-      "flag": "DFIntStreamingLowPriorityRadius",
-      "description": "[CONFIRMED] Radius for low-priority asset streaming.",
-      "recommendations": { "performance": "512", "quality": "2048", "stable": "1024" }
-    },
-
-    {
-      "flag": "FFlagPhysicsEnableIslandSleeping",
-      "description": "[CONFIRMED] Allows entire physics islands to sleep when inactive.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+      "flag": "DFFlagDebugDrawBroadPhaseAABBs",
+      "description": "[KNOWN] Draws bounding boxes around all parts and humanoids for physics/hitbox debugging.",
+      "recommendations": { "performance": "False", "quality": "False", "stable": "False" }
     },
     {
-      "flag": "DFIntPhysicsIslandSleepThreshold",
-      "description": "[CONFIRMED] Threshold used to determine island sleep state.",
-      "recommendations": { "performance": "10", "quality": "2", "stable": "5" }
+      "flag": "DFIntSimBlockLargeLocalToolWeldManipulationsThreshold",
+      "description": "[CAUTION][UNKNOWN] Documented in community sources with no explanation beyond the name; relates to blocking large tool-weld manipulations in physics. Given it touches tool/weld physics, treat as potentially exploit-adjacent.",
+      "recommendations": { "performance": "N/A - not recommended", "quality": "N/A", "stable": "N/A" }
     },
     {
-      "flag": "FFlagPhysicsUseFastContactSolver",
-      "description": "[EXPERIMENTAL] Uses faster but less precise contact resolution.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-    },
-
-    {
-      "flag": "FFlagLuaGcIncremental2",
-      "description": "[CONFIRMED] Enables incremental Lua garbage collection.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+      "flag": "DFIntSolidFloorPercentForceApplication",
+      "description": "[CAUTION][UNKNOWN] Appears in community physics-exploit flag lists paired with a 'NonSolidFloor' counterpart; exact mechanism unexplained but grouped with other movement/force-manipulation flags.",
+      "recommendations": { "performance": "N/A - not recommended", "quality": "N/A", "stable": "N/A" }
     },
     {
-      "flag": "DFIntLuaGcStepSize",
-      "description": "[CONFIRMED] Controls how aggressively Lua GC runs per step.",
-      "recommendations": { "performance": "200", "quality": "100", "stable": "50" }
+      "flag": "DFIntNonSolidFloorPercentForceApplication",
+      "description": "[CAUTION][UNKNOWN] See DFIntSolidFloorPercentForceApplication; its counterpart for non-solid floor surfaces.",
+      "recommendations": { "performance": "N/A - not recommended", "quality": "N/A", "stable": "N/A" }
     },
     {
-      "flag": "FFlagLuaGcParallelSweep",
-      "description": "[EXPERIMENTAL] Allows Lua GC sweep phase to run in parallel.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
-    },
-
-    {
-      "flag": "FFlagNetworkUsePacketBundling",
-      "description": "[CONFIRMED] Bundles multiple small packets into larger ones.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+      "flag": "FIntRenderShadowmapBias",
+      "description": "[UNKNOWN] Presumed to adjust depth bias used when rendering shadow maps (affects shadow acne/peter-panning artifacts); not independently confirmed.",
+      "recommendations": { "performance": "1", "quality": "0", "stable": "1" }
     },
     {
-      "flag": "DFIntNetworkPacketBundleMaxSize",
-      "description": "[CONFIRMED] Maximum size of bundled network packets.",
-      "recommendations": { "performance": "4096", "quality": "2048", "stable": "1024" }
-    },
-
-    {
-      "flag": "FFlagAudioUseThreadedMixer",
-      "description": "[CONFIRMED] Moves audio mixing work to a dedicated thread.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+      "flag": "FIntDebugForceMSAASamples",
+      "description": "[KNOWN] Forces a specific MSAA (multi-sample anti-aliasing) sample count, overriding the normal graphics-quality-driven setting.",
+      "recommendations": { "performance": "0", "quality": "4", "stable": "2" }
     },
     {
-      "flag": "DFIntAudioMixerBufferMs",
-      "description": "[CONFIRMED] Buffer size in milliseconds for audio mixer.",
-      "recommendations": { "performance": "10", "quality": "30", "stable": "20" }
-    },
-
-    {
-      "flag": "FFlagUIBatchTextRendering",
-      "description": "[CONFIRMED] Batches text rendering to reduce UI draw calls.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-    },
-    {
-      "flag": "DFIntUITextBatchSize",
-      "description": "[CONFIRMED] Maximum number of text glyphs per batch.",
-      "recommendations": { "performance": "2048", "quality": "1024", "stable": "512" }
-    },
-
-    {
-      "flag": "FFlagMemoryEnableHeapCompaction",
-      "description": "[EXPERIMENTAL] Enables periodic heap compaction to reduce fragmentation.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-    },
-    {
-      "flag": "FFlagLowQualityWater",
-      "description": "[CONFIRMED] Disables water reflections and advanced waves.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-    },
-
-    {
-      "flag": "FFlagDisableFog",
-      "description": "[CONFIRMED] Disables atmospheric fog rendering.",
-      "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-    },
-  {
-    "flag": "FFlagRenderEnableAdvancedShadows",
-    "description": "[EXPERIMENTAL] Activates advanced shadow rendering techniques for improved realism. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagLightingEnableColorGrading",
-    "description": "[EXPERIMENTAL] Enables color grading for artistic visual effects and ambiance. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagPhysicsEnableMultiThreading",
-    "description": "[CONFIRMED] Enables multi-threaded physics calculations for better performance on multi-core processors. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagStreamingEnableTextureMipmaps",
-    "description": "[CONFIRMED] Uses mipmaps for textures, improving performance while reducing visual popping at various distances. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableTessellation",
-    "description": "[EXPERIMENTAL] Enables tessellation for higher detail in 3D models at closer distances. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagNetworkingEnableClientSidePrediction",
-    "description": "[CONFIRMED] Enables client-side prediction for smoother gameplay in fast-paced online games. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagLightingEnableSkyboxBlur",
-    "description": "[EXPERIMENTAL] Adds a blur effect to the skybox for more atmospheric visuals. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagMemoryEnableTextureStreaming",
-    "description": "[CONFIRMED] Enables texture streaming to reduce memory usage by loading textures as needed. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
-  },
-  {
-    "flag": "FFlagPhysicsEnableSoftBodySimulation",
-    "description": "[EXPERIMENTAL] Enables soft-body physics for more realistic object deformations. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagRenderEnableRealTimeReflections",
-    "description": "[EXPERIMENTAL] Activates real-time reflections for enhanced realism in reflective surfaces. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAvatarEnableClothingLayering",
-    "description": "[CONFIRMED] Allows multiple layers of clothing to be worn at once, providing more customization. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagLightingEnableDynamicDayNightCycle",
-    "description": "[EXPERIMENTAL] Enables a dynamic day-night cycle for more immersive environments. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagNetworkingEnablePacketLossRecovery",
-    "description": "[CONFIRMED] Implements packet loss recovery for a smoother experience in low-quality networks. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagAvatarEnableSkinnedMeshRendering",
-    "description": "[CONFIRMED] Enables skinned mesh rendering for smoother character animation. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagPhysicsEnableFluidDynamics",
-    "description": "[EXPERIMENTAL] Adds realistic fluid dynamics for water and other liquids in the game. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagRenderEnablePostProcessingEffects",
-    "description": "[EXPERIMENTAL] Activates post-processing effects like bloom and lens flares for cinematic visuals. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagLightingEnableSunShafts",
-    "description": "[EXPERIMENTAL] Enables sun shaft effects for more realistic sunlight scattering. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagNetworkingEnableVoiceChatCompression",
-    "description": "[CONFIRMED] Compresses voice chat for reduced bandwidth usage while maintaining clarity. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableScreenSpaceReflections",
-    "description": "[EXPERIMENTAL] Activates screen-space reflections for real-time mirror-like effects. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagPhysicsEnableGravityField",
-    "description": "[EXPERIMENTAL] Adds customizable gravity fields for unique gameplay effects. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagRenderEnableVolumetricClouds",
-    "description": "[EXPERIMENTAL] Adds volumetric clouds for a more immersive and dynamic sky. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAvatarEnableEmoteSyncing",
-    "description": "[CONFIRMED] Synchronizes emote animations across all players for better multiplayer experiences. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagMemoryEnableScriptCompression",
-    "description": "[CONFIRMED] Compresses scripts during runtime to save memory and improve load times. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableDirectionalBlur",
-    "description": "[EXPERIMENTAL] Adds directional blur effects to simulate high-speed motion. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagRenderEnableTiledDeferredLighting",
-    "description": "[EXPERIMENTAL] Enables tiled deferred lighting for more efficient light handling. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagPhysicsAsyncFluidSimulation",
-    "description": "[CONFIRMED] Asynchronous fluid simulation for better performance during high load. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableDepthOfField",
-    "description": "[EXPERIMENTAL] Enables depth of field effects for more cinematic visuals. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAnimationBoneCacheOptimization",
-    "description": "[CONFIRMED] Optimizes bone cache to improve animation performance. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagNetworkingEnableAdaptiveCompression",
-    "description": "[CONFIRMED] Enables adaptive network data compression based on network conditions. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableGlobalIllumination",
-    "description": "[EXPERIMENTAL] Uses global illumination for more realistic lighting. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagStreamingTextureCompression",
-    "description": "[CONFIRMED] Compresses textures during streaming to reduce memory usage. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableMotionBlur",
-    "description": "[EXPERIMENTAL] Enables motion blur effect for smoother movement visuals. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagMemoryDynamicAssetUnload",
-    "description": "[CONFIRMED] Dynamically unloads assets from memory when not needed. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableAmbientOcclusion",
-    "description": "[EXPERIMENTAL] Adds ambient occlusion for better shading and realism. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAvatarStreamingLodBias",
-    "description": "[CONFIRMED] Adjusts LOD bias for avatar streaming to balance performance and visual quality. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagPhysicsEnableFracture",
-    "description": "[EXPERIMENTAL] Enables object fracture simulation when broken. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagRenderEnableVolumetricLighting",
-    "description": "[EXPERIMENTAL] Enables volumetric lighting effects for a more dynamic scene. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagPhysicsParticleColliderOptimization",
-    "description": "[CONFIRMED] Optimizes particle collisions with physics objects for better performance. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagLightingEnableLensFlare",
-    "description": "[EXPERIMENTAL] Adds lens flare effect for bright light sources. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagNetworkingEnableLowLatencyPrediction",
-    "description": "[CONFIRMED] Uses low-latency prediction to improve responsiveness in fast-paced games. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableLensDistortion",
-    "description": "[EXPERIMENTAL] Adds lens distortion effect for a cinematic visual style. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAvatarEnableAppearanceCaching",
-    "description": "[CONFIRMED] Caches avatar appearances to speed up subsequent loads. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableObjectReflection",
-    "description": "[EXPERIMENTAL] Enables reflections on 3D objects for realism. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagPhysicsReduceSubstepIterations",
-    "description": "[CONFIRMED] Reduces the number of physics substep iterations to improve performance. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
-  },
-  {
-    "flag": "FFlagLightingEnableRainEffects",
-    "description": "[EXPERIMENTAL] Adds rain effects to the lighting system for dynamic weather. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagRenderEnableHighQualityReflections",
-    "description": "[EXPERIMENTAL] Enables high-quality reflections for a more realistic appearance. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagMemoryEnableAssetDeduplication",
-    "description": "[CONFIRMED] Duplicates assets in memory for faster load times. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderAsyncComputeShaders",
-    "description": "[CONFIRMED] Enables asynchronous compute shaders for faster GPU processing. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagPhysicsThreadedBroadphase",
-    "description": "[EXPERIMENTAL] Moves physics broadphase calculations to a separate thread. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAvatarAsyncLoadParts",
-    "description": "[CONFIRMED] Loads avatar parts asynchronously to reduce initial load times. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagStreamingReduceTextureDetail",
-    "description": "[EXPERIMENTAL] Reduces streamed texture detail when far from camera. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
-  },
-  {
-    "flag": "FFlagNetworkPredictiveInterpolation",
-    "description": "[CONFIRMED] Improves player movement smoothness using predictive interpolation. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableRaytracedShadows",
-    "description": "[EXPERIMENTAL] Enables ray-traced shadows for higher visual fidelity. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAnimationGpuSkinning",
-    "description": "[CONFIRMED] Offloads avatar skinning calculations to GPU. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagVRAMTexturePoolLimit",
-    "description": "[CONFIRMED] Sets maximum VRAM used by textures to prevent GPU thrashing. [CONFIDENCE]",
-    "recommendations": { "performance": "512", "quality": "2048", "stable": "1024" }
-  },
-  {
-    "flag": "FFlagRenderDisableVolumetricFog",
-    "description": "[CONFIRMED] Turns off volumetric fog for performance gain. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "True" }
-  },
-  {
-    "flag": "FFlagFastGuiRenderPipeline",
-    "description": "[EXPERIMENTAL] Uses optimized rendering for UI elements. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagParticleAsyncSimulation",
-    "description": "[CONFIRMED] Simulates particle systems asynchronously. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagPhysicsAdaptiveSolverIterations",
-    "description": "[EXPERIMENTAL] Adjusts physics solver iterations dynamically based on load. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAvatarLODStreaming",
-    "description": "[CONFIRMED] Loads lower LODs of avatars at distance to improve performance. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableTAA",
-    "description": "[EXPERIMENTAL] Enables Temporal Anti-Aliasing for smoother visuals. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagDynamicShadowResolution",
-    "description": "[CONFIRMED] Adjusts shadow map resolution based on camera distance. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagPhysicsAsyncCollisionChecks",
-    "description": "[EXPERIMENTAL] Runs collision checks asynchronously to reduce frame spikes. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "False", "stable": "False" }
-  },
-  {
-    "flag": "FFlagStreamingAsyncSoundLoad",
-    "description": "[CONFIRMED] Loads audio assets asynchronously during gameplay. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableSSR",
-    "description": "[EXPERIMENTAL] Enables Screen-Space Reflections for improved realism. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagAvatarGpuCulling",
-    "description": "[CONFIRMED] Offloads distant avatar culling to GPU. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagLightingVolumetricClouds",
-    "description": "[EXPERIMENTAL] Enables volumetric clouds in lighting system. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagMemoryReduceGarbageFrequency",
-    "description": "[CONFIRMED] Reduces frequency of memory GC for smoother gameplay. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagPhysicsEnableSleepOnStart",
-    "description": "[CONFIRMED] Physics objects start in sleep state to reduce initial load. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderAsyncPostProcessing",
-    "description": "[EXPERIMENTAL] Post-processing effects run asynchronously for better FPS. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagNetworkingReducedPingInterpolation",
-    "description": "[CONFIRMED] Reduces interpolation delay for networked avatars. [CONFIDENCE]",
-    "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
-  },
-  {
-    "flag": "FFlagRenderEnableBloom",
-    "description": "[EXPERIMENTAL] Enables bloom post-processing effect. [CONFIDENCE]",
-    "recommendations": { "performance": "False", "quality": "True", "stable": "False" }
-  },
-  {
-    "flag": "FFlagStreamingTextureMipBias",
-    "description": "[CONFIRMED] Adjusts mipmap level bias for streamed textures. [CONFIDENCE]",
-    "recommendations": { "performance": "2", "quality": "0", "stable": "1" }
-  },
-    {
-      "flag": "FFlagCommitToGraphicsQualityFix",
-      "description": "[CONFIRMED] Stabilizes graphics quality selection logic.",
-      "recommendations": { "performance": "True", "quality": "True", "stable": "True" }
+      "flag": "FIntTextureCompositorLowResFactor",
+      "description": "[KNOWN] Scales down the resolution of composited avatar/character textures to reduce GPU and memory load.",
+      "recommendations": { "performance": "4", "quality": "1", "stable": "2" }
     }
-
   ]
 }
