@@ -4,7 +4,6 @@
 
 > [!NOTE]
 > Buttstrap is NO LONGER IN ACTIVE DEVELOPMENT, users may experience bugs and issues as time goes on, for now, Buttstrap has worked fine and showed no issues, bugfixes will still happen but new features won't be added.
-> LATEST UPDATE: UI Overhaul and simplification.
 
 # Buttstrap
 A simple yet effective Bootstrapper.
